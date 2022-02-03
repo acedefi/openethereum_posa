@@ -1,0 +1,43 @@
+[parity]
+chain = "/openethereum/genesis.json" 
+base_path = "/openethereum/" 
+
+[network]
+port = 30316
+reserved_peers=  "/openethereum/nodes" 
+allow_ips = "all"
+discovery = true
+bootnodes= [
+    "enode://9780a07a787661415a3d43b34841645f317c5db4ce6b1709654a683995f63cdd5739f383cb3e0267cdaf8faaee4c26cb3c0038dc07ccc95491e6ee8a751391a8@172.18.0.2:30315"
+    ]
+
+[rpc]
+port = 8647
+apis = ["web3", "eth", "net", "personal", "parity", "parity_set", "traces" ,"rpc", "parity_accounts"]
+interface = "all"
+cors = ["all"]
+
+[websockets]
+disable = false
+port = 10646
+interface = "all"
+origins = ["none"]
+apis = ["all"]
+hosts = ["all"]
+
+[account]
+password = ["/openethereum/password"] 
+
+[mining]
+engine_signer = "0x72d6424dbc29fc63eda6af9742d0ebadb57717c6"  
+gas_floor_target = "40000000"
+reseal_on_txs = "none" 
+usd_per_tx = "0" 
+force_sealing = true
+refuse_service_transactions = false
+
+[misc]
+logging = "own_tx=trace"
+log_file = "/openethereum/log.log"
+color = true
+
