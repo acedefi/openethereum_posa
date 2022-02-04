@@ -26,7 +26,6 @@ services:
             /openethereum/target/release/openethereum --config /openethereum/config.toml"
     working_dir: /openethereum
 
-
   pos2_1:
     image: "nara7875/openethereum:10"
     tty: true
@@ -47,6 +46,30 @@ services:
     command: >
       sh -c "cd ~/
             /openethereum/target/release/openethereum --config /openethereum/config.toml"
+      bash -c "/wait-for-it.sh -h nara7875/openethereum:10 -p 10646 -t 10 -- npm run start"
+    working_dir: /openethereum
+
+  pos3_1:
+    image: "nara7875/openethereum:10"
+    tty: true
+    ports:
+      - 30317:30317
+    environment:
+      ENV: ETHERNODE3
+      RPCPORT: 8647
+      PORT: 30317
+      RUST_BACKTRACE: 1
+    volumes:
+      - ./config3.toml:/openethereum/config.toml
+      - ./genesis1.json:/openethereum/genesis.json
+      - ./password:/openethereum/password
+      - ./nodes:/openethereum/nodes
+      - ./keys3:/openethereum/keys
+    container_name: pos3_1
+    command: >
+      sh -c "cd ~/
+            /openethereum/target/release/openethereum --config /openethereum/config.toml"
+      bash -c "/wait-for-it.sh -h nara7875/openethereum:10 -p 10646 -t 10 -- npm run start"
     working_dir: /openethereum
 
   scan:
@@ -83,6 +106,7 @@ services:
     depends_on:
       - pos1_1
       - pos2_1
+      - pos3_1
     ports: 
       - 27017:27017
     volumes:
